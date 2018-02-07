@@ -1,5 +1,6 @@
 const CountryList = require('./models/country_list.js');
 const SelectView = require('./views/selectView.js');
+const storage = require('./services/storage.js');
 
 const app = function() {
 
@@ -10,6 +11,10 @@ const app = function() {
   var selectView = new SelectView(select, countryList);
 
   // request.get(getCountriesRequestComplete);
+
+  selectView.onChange = function (country) {
+    storage.save(country)
+  }
 
 }
 

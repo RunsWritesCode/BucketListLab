@@ -69,6 +69,7 @@
 
 const CountryList = __webpack_require__(1);
 const SelectView = __webpack_require__(2);
+const storage = __webpack_require__(3);
 
 const app = function() {
 
@@ -79,6 +80,10 @@ const app = function() {
   var selectView = new SelectView(select, countryList);
 
   // request.get(getCountriesRequestComplete);
+
+  selectView.onChange = function (country) {
+    storage.save(country)
+  }
 
 }
 
@@ -116,7 +121,9 @@ module.exports = CountryList;
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+var storage = __webpack_require__(3);
 
 var SelectView = function(selectElement, countryList) {
   this.selectElement = selectElement;
@@ -171,6 +178,30 @@ SelectView.prototype = {
 };
 
 module.exports = SelectView;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+var storage = {
+
+  key: 'selectedCountry',
+
+  save: function (country) {
+    if (!country) return;
+    var jsonString = JSON.stringify(country);
+    localStorage.setItem(this.key, jsonString);
+  },
+
+  get: function () {
+    var jsonString = localStorage.getItem(this.key);
+    return JSON.parse(jsonString);
+  }
+
+};
+
+module.exports = storage;
 
 
 /***/ })

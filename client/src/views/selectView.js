@@ -1,3 +1,5 @@
+var storage = require('../services/storage.js');
+
 var SelectView = function(selectElement, countryList) {
   this.selectElement = selectElement;
   this.countryList = countryList;
