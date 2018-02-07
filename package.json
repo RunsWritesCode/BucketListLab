@@ -1,0 +1,21 @@
+{
+  "name": "bucket_list_lab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js",
+    "build": "cd client && webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RunsWritesCode/BucketListLab.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RunsWritesCode/BucketListLab/issues"
+  },
+  "homepage": "https://github.com/RunsWritesCode/BucketListLab#readme"
+}
