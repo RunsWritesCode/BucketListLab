@@ -13,6 +13,18 @@ const getCountriesRequestComplete = function(allCountries) {
   });
 }
 
+const createRequestComplete = function(country) {
+  countryView.addCountry(country);
+}
+
+const createButtonClicked = function(e) {
+  e.preventDefault();
+  console.log('button clicked');
+
+  const country = storage.get()
+  request.post(createRequestComplete, country);
+}
+
 
 const app = function() {
 
@@ -27,6 +39,10 @@ const app = function() {
   selectView.onChange = function (country) {
     storage.save(country)
   }
+
+  const createSaveButton = document.querySelector('#save');
+  createSaveButton.addEventListener('click', createButtonClicked);
+
 
 }
 
