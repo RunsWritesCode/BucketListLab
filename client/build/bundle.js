@@ -70,6 +70,18 @@
 const CountryList = __webpack_require__(1);
 const SelectView = __webpack_require__(2);
 const storage = __webpack_require__(3);
+const Request = __webpack_require__(4);
+const CountryView = __webpack_require__(5)
+const countryView = new CountryView();
+
+const request = new Request('http://localhost:3000/api/countries')
+
+const getCountriesRequestComplete = function(allCountries) {
+  allCountries.forEach(function(country) {
+    countryView.addCountry(country);
+  });
+}
+
 
 const app = function() {
 
@@ -79,7 +91,7 @@ const app = function() {
   var select = document.querySelector('#countries');
   var selectView = new SelectView(select, countryList);
 
-  // request.get(getCountriesRequestComplete);
+  request.get(getCountriesRequestComplete);
 
   selectView.onChange = function (country) {
     storage.save(country)
@@ -202,6 +214,71 @@ var storage = {
 };
 
 module.exports = storage;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+const Request = function(url) {
+  this.url = url;
+}
+
+Request.prototype.get = function(callback) {
+  const request = new XMLHttpRequest();
+  request.open('GET', this.url);
+  request.addEventListener('load', function() {
+    if(this.status!==200) {
+      return;
+    }
+
+    const responseBody = JSON.parse(this.responseText);
+
+    callback(responseBody);
+  });
+  request.send();
+}
+
+Request.prototype.post = function(callback, body) {
+  const request = new XMLHttpRequest();
+  request.open('POST', this.url);
+  request.setRequestHeader('Content-Type', 'application/json'); // This line was added
+  request.addEventListener('load', function() {
+    if(this.status!==201) {
+      return;
+    }
+
+    const responseBody = JSON.parse(this.responseText);
+
+    callback(responseBody);
+  });
+  request.send(JSON.stringify(body));
+}
+
+module.exports = Request;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+var CountryView = function() {
+  this.countries = [];
+}
+
+CountryView.prototype.addCountry = function(country) {
+  this.countries.push(country);
+  this.render(country);
+}
+
+CountryView.prototype.render = function (country) {
+  const ul = document.querySelector('#countries-ul');
+  const li = document.createElement('li');
+  li.innerText = country.name;
+  ul.append(li);
+};
+
+module.exports = CountryView;
 
 
 /***/ })
