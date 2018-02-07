@@ -17,4 +17,6 @@ CountryList.prototype.getData = function () {
   }.bind(this));
 
   request.send();
-};
+}
+
+module.exports = CountryList;
