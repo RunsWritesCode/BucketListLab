@@ -1,0 +1,12 @@
+body {
+  background-image: url("http://www.iea.org/media/news/2017/171113WEO2017MainImage.jpg");
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  /* background-repeat: no-repeat; */
+  background-size: cover;
+}
+
+ul {
+  color: white;
+}

@@ -38,6 +38,20 @@ MongoClient.connect('mongodb://localhost:27017', function(err, client) {
     })
   })
 
+  server.delete('/api/countries', function(req, res){
+      db.collection("countries").deleteMany(function(err, result){
+        if(err){
+          console.log(err);
+          res.status(500);
+          res.send();
+        }
+        // res.json(result);
+        res.status(204);
+        res.send();
+        console.log("All items deleted");
+
+      })
+    })
 
   server.listen(3000, function() {
     console.log('app is listening on port 3000');

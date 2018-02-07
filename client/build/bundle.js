@@ -94,6 +94,14 @@ const createButtonClicked = function(e) {
   request.post(createRequestComplete, country);
 }
 
+const deleteButtonClicked = function() {
+  request.delete(deleteRequestComplete);
+}
+
+const deleteRequestComplete = function() {
+  countryView.clear();
+}
+
 
 const app = function() {
 
@@ -112,6 +120,8 @@ const app = function() {
   const createSaveButton = document.querySelector('#save');
   createSaveButton.addEventListener('click', createButtonClicked);
 
+  const deleteButton = document.querySelector('#delete');
+  deleteButton.addEventListener('click', deleteButtonClicked);
 
 }
 
@@ -271,6 +281,19 @@ Request.prototype.post = function(callback, body) {
   request.send(JSON.stringify(body));
 }
 
+Request.prototype.delete = function(callback) {
+  const request = new XMLHttpRequest();
+  request.open('DELETE', this.url);
+  request.addEventListener('load', function() {
+    if(this.status!==204) {
+      return;
+    }
+
+    callback();
+  });
+  request.send();
+}
+
 module.exports = Request;
 
 
@@ -292,6 +315,12 @@ CountryView.prototype.render = function (country) {
   const li = document.createElement('li');
   li.innerText = country.name;
   ul.append(li);
+};
+
+CountryView.prototype.clear = function (country) {
+  this.countries = [];
+  const ul = document.querySelector('#countries-ul');
+  ul.innerHTML = '';
 };
 
 module.exports = CountryView;

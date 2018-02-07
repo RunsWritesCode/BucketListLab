@@ -25,6 +25,14 @@ const createButtonClicked = function(e) {
   request.post(createRequestComplete, country);
 }
 
+const deleteButtonClicked = function() {
+  request.delete(deleteRequestComplete);
+}
+
+const deleteRequestComplete = function() {
+  countryView.clear();
+}
+
 
 const app = function() {
 
@@ -43,6 +51,8 @@ const app = function() {
   const createSaveButton = document.querySelector('#save');
   createSaveButton.addEventListener('click', createButtonClicked);
 
+  const deleteButton = document.querySelector('#delete');
+  deleteButton.addEventListener('click', deleteButtonClicked);
 
 }
 

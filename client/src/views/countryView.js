@@ -14,4 +14,10 @@ CountryView.prototype.render = function (country) {
   ul.append(li);
 };
 
+CountryView.prototype.clear = function (country) {
+  this.countries = [];
+  const ul = document.querySelector('#countries-ul');
+  ul.innerHTML = '';
+};
+
 module.exports = CountryView;
